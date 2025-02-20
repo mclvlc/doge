@@ -65,5 +65,5 @@ yesButton.addEventListener("click", function () {
   document.querySelector(".yes-text").innerText = loveTest;
 
   // 禁止滚动，保持页面美观
-  document.body.style.overflow = "hidden";
+//  document.body.style.overflow = "hidden";
 });
