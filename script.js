@@ -24,6 +24,11 @@ const noTexts = [
   "追不上吧",
 ];
 
+// 检测用户是否为电脑设备
+function isDesktop() {
+  return !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 // 生成随机位置，确保按钮在窗口内
 function getRandomPosition(button) {
   const safeMargin = 10; // 安全边距
@@ -33,9 +38,15 @@ function getRandomPosition(button) {
   const buttonHeight = button.offsetHeight;
 
   // 计算随机的 X 坐标，确保按钮不会超出屏幕左侧和右侧
-  const randomX = Math.floor(Math.random() * (windowWidth - buttonWidth - 2 * safeMargin)) + safeMargin;
+  let randomX = Math.floor(Math.random() * (windowWidth - buttonWidth - 2 * safeMargin)) + safeMargin;
   // 计算随机的 Y 坐标，确保按钮不会超出屏幕顶部和底部
-  const randomY = Math.floor(Math.random() * (windowHeight - buttonHeight - 2 * safeMargin)) + safeMargin;
+  let randomY = Math.floor(Math.random() * (windowHeight - buttonHeight - 2 * safeMargin)) + safeMargin;
+
+  // 如果是电脑设备，将坐标减半
+  if (isDesktop()) {
+    randomX = randomX / 2;
+    randomY = randomY / 2;
+  }
 
   return { x: randomX, y: randomY };
 }
