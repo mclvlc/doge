@@ -28,19 +28,32 @@ const noTexts = [
 noButton.addEventListener("click", function () {
   clickCount++;
 
-  // 挤压 No 按钮，每次右移 50px
-  let noOffset = clickCount * 50;
-  noButton.style.transform = `translateX(${noOffset}px)`;
   // 挤压 No 按钮，随机移动位置
-  let randomX = Math.floor(Math.random() * window.innerWidth);
-  let randomY = Math.floor(Math.random() * window.innerHeight);
-  noButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
-
+  // 确保按钮的位置是绝对定位
+  noButton.style.position = 'absolute';
+  
+  // 考虑滚动条宽度和安全边距（这里假设滚动条宽度为 15px，安全边距为 10px）
+  const scrollbarWidth = 15;
+  const safeMargin = 10;
+  const availableWidth = window.innerWidth - noButton.offsetWidth - scrollbarWidth - safeMargin;
+  const availableHeight = window.innerHeight - noButton.offsetHeight - scrollbarWidth - safeMargin;
+  
+  // 计算随机的 X 坐标，确保按钮不会超出屏幕左侧和右侧
+  let randomX = Math.floor(Math.random() * availableWidth);
+  // 计算随机的 Y 坐标，确保按钮不会超出屏幕顶部和底部
+  let randomY = Math.floor(Math.random() * availableHeight);
+  
+  // 应用随机的位置
+  noButton.style.left = `${randomX + safeMargin}px`;
+  noButton.style.top = `${randomY + safeMargin}px`;
+  
+  // 移除 transform 样式，避免样式冲突
+  noButton.style.transform = 'none';
+  
   // No 文案变化（前 5 次变化）
   //if (clickCount <= 3) {
   //  noButton.innerText = noTexts[clickCount - 1];
   //}
-
   // 图片变化（前 5 次变化）
   if (clickCount === 1) mainImage.src = "images/shocked.png"; // 震惊
   if (clickCount === 2) mainImage.src = "images/think.png"; // 思考
@@ -65,5 +78,5 @@ yesButton.addEventListener("click", function () {
   document.querySelector(".yes-text").innerText = loveTest;
 
   // 禁止滚动，保持页面美观
-//  document.body.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
 });
