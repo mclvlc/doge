@@ -3,6 +3,14 @@ let noButton = document.getElementById("no");
 let questionText = document.getElementById("question");
 let mainImage = document.getElementById("mainImage");
 
+// 为按钮父容器添加样式，确保有足够宽度且不换行
+document.body.style.whiteSpace = 'nowrap';
+document.body.style.width = '100%';
+document.body.style.display = 'flex';
+document.body.style.flexWrap = 'nowrap';
+document.body.style.alignItems = 'center';
+document.body.style.justifyContent = 'center';
+
 const params = new URLSearchParams(window.location.search);
 let username = params.get("name");
 
@@ -51,22 +59,12 @@ function getRandomPosition(button) {
   return { x: randomX, y: randomY };
 }
 
+// 为 No 按钮添加过渡效果，将时间改为 0.15s
+noButton.style.transition = 'left 0.15s ease, top 0.15s ease';
+
 // No 按钮点击事件
 noButton.addEventListener("click", function () {
   clickCount++;
-
-  // 确保按钮的位置是绝对定位
-  noButton.style.position = 'absolute';
-
-  // 获取随机位置
-  const { x, y } = getRandomPosition(noButton);
-
-  // 应用随机的位置
-  noButton.style.left = `${x}px`;
-  noButton.style.top = `${y}px`;
-
-  // 移除 transform 样式，避免样式冲突
-  noButton.style.transform = 'none';
 
   // No 文案变化（前 3 次变化）
   if (clickCount <= 3) {
@@ -77,6 +75,57 @@ noButton.addEventListener("click", function () {
   if (clickCount === 1) mainImage.src = "images/shocked.png"; // 震惊
   if (clickCount === 2) mainImage.src = "images/think.png"; // 思考
   if (clickCount >= 3) mainImage.src = "images/angry.png"; // 生气
+
+  // 第一次和第二次点击后切换按钮位置
+  if (clickCount === 1 || clickCount === 2) {
+    const tempLeft = yesButton.style.left;
+    const tempTop = yesButton.style.top;
+    yesButton.style.left = noButton.style.left;
+    yesButton.style.top = noButton.style.top;
+    noButton.style.left = tempLeft;
+    noButton.style.top = tempTop;
+  }
+
+  // 前两次点击不移动，第三次点击开始移动
+  if (clickCount >= 3) {
+    // 确保按钮的位置是绝对定位
+    if (clickCount === 3) {
+      // 在第三次点击时，先设置初始位置样式，让浏览器渲染一次
+      requestAnimationFrame(() => {
+        noButton.style.position = 'absolute';
+        const { x, y } = getRandomPosition(noButton);
+        // 移除 transform 样式，避免样式冲突
+        noButton.style.transform = 'none';
+        // 应用随机的位置
+        noButton.style.left = `${x}px`;
+        noButton.style.top = `${y}px`;
+      });
+    } else {
+      // 第三次之后的点击，正常移动
+      noButton.style.position = 'absolute';
+      const { x, y } = getRandomPosition(noButton);
+      // 移除 transform 样式，避免样式冲突
+      noButton.style.transform = 'none';
+      // 应用随机的位置
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+    }
+
+    // 第三次点击后循环 16 次随机移动
+    if (clickCount >= 3) {
+      let loopCount = 0;
+      const intervalId = setInterval(() => {
+        if (loopCount >= 16) {
+          clearInterval(intervalId);
+          return;
+        }
+        const { x, y } = getRandomPosition(noButton);
+        noButton.style.left = `${x}px`;
+        noButton.style.top = `${y}px`;
+        loopCount++;
+      }, 150); // 这里的 150 是移动间隔时间，和过渡时间对应，可以根据需要调整
+    }
+  }
 });
 
 // Yes 按钮点击后，进入表白成功页面
