@@ -2,20 +2,363 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- ... 其他head内容不变 ... -->
     <title>可以成为我的小狗吗？</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://static.zeoseven.com/zsft/47/main/result.css');
+        
+        body {
+            font-family: "ZCOOL KuaiLe" !important;
+            font-weight: normal;
+            /* 保持原有body样式不变... */
+        }
+
+        /* 强制所有文本元素继承字体 */
+        .title, .magic-btn, h1, a, button {
+            font-family: inherit !important;
+        }
+    </style>
+    <title>可以成为我的小狗吗？</title>
+    <style>
+        .banner-img {
+            position: absolute;
+            top: 25%;  /* 从30%调整为25% */
+            left: 50%;
+            transform: translateX(-50%);
+            max-height: 180px;  /* 从120px增加到180px */
+            width: auto;
+            border-radius: 20px;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);  /* 增强阴影效果 */
+            padding: 10px;  /* 添加内边距 */
+            background: rgba(255, 255, 255, 0.9);  /* 添加浅色背景 */
+        }
+
+        .title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5em;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 0;
+            white-space: nowrap;
+        }
+        
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #ffdae0;
+            overflow: hidden;
+        }
+
+        .magic-btn {  /* 修改ID选择器为类选择器 */
+            position: fixed;
+            transform: none;
+            padding: 15px 30px;  /* 原为20px 40px */
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 25px;  /* 原为30px */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            color: #ffffff !important;  /* 文字改为白色 */
+            font-size: 1em;       /* 原为1.2em */
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            writing-mode: horizontal-tb !important;
+        }
+        #magic-btn-left {
+        background: #d4818e !important;
+    }
+    #magic-btn {
+        background: #6784b1 !important;
+    }
+        .magic-btn:hover {  /* 同步修改悬停状态选择器 */
+            transform: scale(1.05);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .magic-btn:active {  /* 同步修改点击状态选择器 */
+            background: #ecf0f1;
+        }
+        @media (max-width: 768px) {
+        .header-container {
+            top: 25% !important;
+            gap: 30px;
+        }
+        .banner-img {
+            max-height: 120px !important;
+            padding: 8px;
+        }
+        .title {
+            font-size: 1.8em !important;
+            top: 0 !important;
+            white-space: normal;
+            text-align: center;
+            padding: 0 15px;
+        }
+        .magic-btn {
+            padding: 12px 25px !important;
+            font-size: 0.9em !important;
+            min-width: 100px;
+        }
+    }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <img id="mainImage" src="images/heart.png" alt="爱心">
-        <h1 id="question">可以成为我的小狗吗？</h1>
-        <div class="buttons">
-            <button id="yes">可以</button>
-            <button id="no">不要</button>
-        </div>
+    <div class="header-container">
+        <img src="https://s2.loli.net/2025/02/26/vMcjAwel2sgU5of.png" class="banner-img" alt="魔法图标">
+        <h1 class="title">可以成为我的小狗吗？</h1>
     </div>
+    <style>
+        .header-container {
+            position: absolute;
+            top: 18%;
+            left: 50%;
+            transform: translate(-50%, 0);  /* 正确写法：X轴位移50%，Y轴不变 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+        }
 
-    <script src="script.js"></script>
+        .banner-img {
+            /* 移除原绝对定位样式 */
+            max-height: 180px;
+            width: auto;
+            border-radius: 20px;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            position: static; 
+            transform: none;  
+        }
+
+        .title {
+            /* 移除原绝对定位样式 */
+            font-size: 2.5em;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 0;
+            order: 2;  /* 确保标题在图片下方 */
+            position: relative;
+            top: -15px;  
+        }
+    </style>
+    
+    <!-- 保持原有按钮结构不变 -->
+    <button class="magic-btn" id="magic-btn-left">可以</button>
+    <button class="magic-btn" id="magic-btn">不要</button>
+
+    <script>
+        document.getElementById('magic-btn-left').addEventListener('click', () => {
+        // 清空整个页面
+        document.body.innerHTML = '';
+        document.body.style.background = '#ffdae0';
+        // 创建容器
+        const container = document.createElement('div');
+            container.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            `;
+        // 创建文字元素
+        const text = document.createElement('h1');
+        text.textContent = '嘻嘻嘻！乖狗狗 ( >᎑<)♡︎ᐝ';
+        text.style.cssText = `
+            color: #000000;
+            font-size: 2.5em;
+            text-align: center;
+            white-space: nowrap;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        `;
+
+        // 创建图片元素
+        const img = document.createElement('img');
+        img.src = 'https://s2.loli.net/2025/02/26/qVN43Hf91I8mlCe.png';  // 注意检查图片路径是否正确
+        img.style.cssText = `
+            max-height: 300px;
+            width: auto;
+            border-radius: 20px;
+            background: #fff;  // 新增白色背景
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            padding: 10px;  // 新增内边距
+        `;
+            // 创建底部链接
+            const link = document.createElement('a');
+            link.href = 'https://mclvlc.github.io/blog//jekyll/update/2025/02/26/%E4%BD%A0%E6%84%BF%E6%84%8F%E6%88%90%E4%B8%BA%E6%88%91%E7%9A%84%E5%B0%8F%E7%8B%97%E5%90%97-%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97&%E7%A2%8E%E7%A2%8E%E5%BF%B5.html';
+            link.textContent = '❤更新日志&碎碎念❤';
+            link.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 1.2em;
+                text-decoration: none;
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+                transition: all 0.3s ease;
+            `;
+
+            // 添加悬停效果
+            link.addEventListener('mouseover', () => {
+                link.style.color = '#ff99cc';
+                link.style.textShadow = '0 4px 8px rgba(255, 153, 204, 0.6)';
+            });
+            link.addEventListener('mouseout', () => {
+                link.style.color = 'rgba(255, 255, 255, 0.9)';
+                link.style.textShadow = '0 2px 4px rgba(0, 0, 0, 0.5)';
+            });
+
+            container.append(text, img);
+            document.body.append(container, link);
+
+
+
+        container.append(text, img);
+            document.body.append(container);
+    });
+
+        // 将函数定义提前
+        function getRandomPosition() {
+            const rect = btn.getBoundingClientRect();
+            const maxX = window.innerWidth - rect.width;
+            const maxY = window.innerHeight - rect.height;
+            
+            return {
+                x: Math.random() * maxX,
+                y: Math.random() * maxY
+            };
+        }
+
+        const btn = document.getElementById('magic-btn');
+        let clickCount = 0;
+        let originalPositions = {};
+
+        function centerButtons(swapped = false) {
+            const mainBtn = document.getElementById('magic-btn');
+            const leftBtn = document.getElementById('magic-btn-left');
+
+            if (!originalPositions.main) {
+                // 获取header容器元素
+                const headerContainer = document.querySelector('.header-container');
+                // 计算容器底部位置 + 40px间距
+                const headerBottom = headerContainer.offsetTop + headerContainer.offsetHeight + 40;
+                
+                originalPositions.main = { 
+                    x: window.innerWidth/2 + 20,
+                    y: headerBottom
+                };
+                originalPositions.left = { 
+                    x: window.innerWidth/2 - leftBtn.offsetWidth - 20,
+                    y: headerBottom
+                };
+                
+                // 应用初始位置
+                mainBtn.style.left = `${originalPositions.main.x}px`;
+                leftBtn.style.left = `${originalPositions.left.x}px`;
+                [mainBtn, leftBtn].forEach(btn => {
+                    btn.style.top = `${headerBottom}px`;
+                });
+                return;
+            }
+            // 交换逻辑
+            if (swapped) {
+                mainBtn.style.left = `${originalPositions.left.x}px`;
+                leftBtn.style.left = `${originalPositions.main.x}px`;
+            } else {
+                mainBtn.style.left = `${originalPositions.main.x}px`;
+                leftBtn.style.left = `${originalPositions.left.x}px`;
+            }
+        }
+        window.addEventListener('load', centerButtons); // 确保页面加载完成时执行
+        const bannerImg = document.querySelector('.banner-img'); 
+        btn.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 1) {
+                btn.textContent = '点错了？';
+                bannerImg.src = 'https://s2.loli.net/2025/02/26/8tLH9TNgPiuYEkp.png';
+            } else if (clickCount === 2) {
+                btn.textContent = '大胆！';
+                bannerImg.src = 'https://s2.loli.net/2025/02/26/Kvgp5dPh7uWeCXO.png';
+            } else if (clickCount >= 3) {
+                btn.textContent = '追不上吧';
+                bannerImg.src = 'https://s2.loli.net/2025/02/26/uzYfQ9pjgVUkIxN.png';
+                let moveCount = 0;
+                const moveInterval = setInterval(() => {
+                    const isLastMove = moveCount === 29; ////////////////// 从14改为29
+                    const { x, y } = getRandomPosition();
+                    // 使用线性动画曲线（去掉刹车效果）
+                    btn.style.transition = isLastMove 
+                        ? 'all 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28)'
+                        : 'all 0.2s cubic-bezier(0.4, 0, 1, 1)';  // 改为线性加速曲线
+                    // 添加预测动画逻辑（增强连贯性）
+                    if (!isLastMove) {
+                        const nextPos = getRandomPosition();
+                        btn.style.transform = `
+                            translate(${(nextPos.x - x)/5}px, ${(nextPos.y - y)/5}px) // 增强预测幅度
+                            rotate(${Math.random()*20-10}deg)
+                        `;
+                    }
+                    // 添加运动模糊（根据移动距离动态计算）
+                    const prevX = parseFloat(btn.style.left) || x;
+                    const prevY = parseFloat(btn.style.top) || y;
+                    const distance = Math.hypot(x - prevX, y - prevY);
+                    const blurValue = Math.min(4, distance * 0.01); // 最大模糊4px
+                    btn.style.filter = `blur(${blurValue}px)`;
+                    // 使用二次贝塞尔曲线（0.25, 0.25, 0.75, 0.75）
+                    btn.style.transition = isLastMove 
+                        ? 'all 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28)'
+                        : 'all 0.1s cubic-bezier(0.25, 0.25, 0.75, 0.75)';  // 抛物线效果
+
+                    // 添加预测动画逻辑
+                    if (!isLastMove) {
+                        const nextPos = getRandomPosition();
+                        btn.style.transform = `
+                            translate(${(nextPos.x - x)/10}px, ${(nextPos.y - y)/10}px)
+                            rotate(${Math.random()*20-10}deg)
+                        `;
+                    }
+                    btn.style.left = `${x}px`;
+                    btn.style.top = `${y}px`;
+
+                    if (isLastMove) {
+                        btn.style.transform = `rotate(${Math.random()*20-10}deg) scale(1.1)`;
+                        // 模糊渐退
+                        setTimeout(() => {
+                            btn.style.filter = 'blur(0)';
+                        }, 200);
+                    }
+
+                    if (++moveCount >= 30) { ////////////////////////////// 从15改为30
+                        clearInterval(moveInterval);
+                        btn.style.transform = 'none';
+                    }
+                }, 100); // 确保间隔与动画时间同步
+            }
+            if (clickCount === 1) {
+                centerButtons(true);
+                // 添加复合动画
+                btn.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.3s';
+                btn.style.transform = 'rotate(-5deg)';  // 点击时微旋转
+            } else if (clickCount === 2) {
+                centerButtons();
+                btn.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            } else {
+                const { x, y } = getRandomPosition();
+                // 优化位移动画
+                btn.style.transition = 'all 0.8s cubic-bezier(0.18, 0.89, 0.32, 1.28)';
+                btn.style.left = `${x}px`;
+                btn.style.top = `${y}px`;
+                btn.style.transform = `rotate(${Math.random()*20-10}deg)`; // 随机旋转
+            }
+        });
+    </script>
 </body>
 </html>
